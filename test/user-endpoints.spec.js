@@ -4,7 +4,7 @@ const helper = require('./test-helper');
 const seedHelper = require('./seed-helper')
 const bcrypt = require('bcryptjs')
 
-describe.only('Users Endpoints', function() {
+describe('Users Endpoints', function() {
   let db
 
   before('make knex instance', () => {
@@ -53,6 +53,26 @@ describe.only('Users Endpoints', function() {
           /*.expect(res => {
             console.log(res.body);
           })*/
+      })
+
+      it('User Successful with Correct User Code', () => {
+        return supertest(app)
+          .get('/api/users/is/112233')
+          .set('Authorization', helper.makeAuthHeader())
+          .expect(200)
+          .expect(res => {
+            console.log(res.body);
+          })
+      })
+
+      it('User Successful with Incorrec User Code', () => {
+        return supertest(app)
+          .get('/api/users/is/112243')
+          .set('Authorization', helper.makeAuthHeader())
+          .expect(404)
+          .expect(res => {
+            console.log(res.body);
+          })
       })
     })
   })

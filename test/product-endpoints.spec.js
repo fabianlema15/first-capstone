@@ -30,6 +30,7 @@ describe('Products Endpoints', function() {
       it('Product Successful', () => {
         return supertest(app)
           .get('/api/products')
+          .set('Authorization', helper.makeAuthHeader())
           .expect(200)
           /*.expect(res => {
             console.log(res.body);
@@ -47,6 +48,7 @@ describe('Products Endpoints', function() {
       it('Product Successful', () => {
         return supertest(app)
           .get('/api/products/1')
+          .set('Authorization', helper.makeAuthHeader())
           .expect(200)
           /*.expect(res => {
             console.log(res.body);
@@ -62,6 +64,7 @@ describe('Products Endpoints', function() {
       newProduct.name = '';
       return supertest(app)
         .post('/api/products')
+        .set('Authorization', helper.makeAuthHeader())
         .send(newProduct)
         .expect(400)
         .expect(res => {
@@ -78,6 +81,7 @@ describe('Products Endpoints', function() {
         const newProduct = helper.makeProductsArray()[0];
         return supertest(app)
           .post('/api/products')
+          .set('Authorization', helper.makeAuthHeader())
           .send(newProduct)
           .expect(201)
           /*.expect(res => {
@@ -103,6 +107,7 @@ describe('Products Endpoints', function() {
         }
         return supertest(app)
           .patch('/api/products/1')
+          .set('Authorization', helper.makeAuthHeader())
           .send(newProduct)
           .expect(400)
           .expect(res => {
@@ -120,6 +125,7 @@ describe('Products Endpoints', function() {
         }
         return supertest(app)
           .patch('/api/products/1')
+          .set('Authorization', helper.makeAuthHeader())
           .send(newProduct)
           .expect(204)
           .expect(res => {
@@ -128,6 +134,7 @@ describe('Products Endpoints', function() {
           .then(() => {
             return supertest(app)
               .get('/api/products/1')
+              .set('Authorization', helper.makeAuthHeader())
               .expect(200)
               /*.expect(res => {
                 console.log(res.body);
@@ -146,6 +153,7 @@ describe('Products Endpoints', function() {
       it('Respons 200 when inactivated', () => {
         return supertest(app)
           .delete('/api/products/1')
+          .set('Authorization', helper.makeAuthHeader())
           .expect(204)
           .expect(res => {
 
@@ -153,6 +161,7 @@ describe('Products Endpoints', function() {
           .then(() => {
             return supertest(app)
               .get('/api/products/1')
+              .set('Authorization', helper.makeAuthHeader())
               .expect(404)
               /*.expect(res => {
                 console.log(res.body);

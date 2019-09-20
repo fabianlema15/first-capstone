@@ -116,6 +116,23 @@ usersRoute
   })
 
   usersRoute
+    .route('/is/:user_code')
+    .get((req, res, next) => {
+      UsersService.hasUserWithUserCode(req.app.get('db'), req.params.user_code)
+        .then(exist => {
+          if(exist)
+            return res.json({
+              message: 'ok'
+            })
+          else
+            return res.status(404).json({
+              error: 'User Not Found'
+            })
+        })
+        .catch(next);
+    })
+
+  usersRoute
     .route('/type/:type')
     .get((req, res, next) => {
       UsersService.getAllRoles(req.app.get('db'))

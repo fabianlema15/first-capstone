@@ -3,7 +3,7 @@ const path = require('path');
 
 function requireAuth(req, res, next) {
   const authToken = req.get('Authorization') || '';
-  if (req.originalUrl.startsWith('/api/auth/login'))
+  if (req.originalUrl.startsWith('/api/auth/login') || req.originalUrl.startsWith('/api/users/is'))
     return next();
   let bearerToken;
   if (!authToken.toLowerCase().startsWith('bearer ')) {

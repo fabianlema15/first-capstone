@@ -33,9 +33,28 @@ describe('Orders Endpoints', function() {
         return supertest(app)
           .get('/api/orders')
           .expect(200)
-          /*.expect(res => {
+          .expect(res => {
             console.log(res.body);
-          })*/
+          })
+      })
+    })
+  })
+
+  describe('GET /byuser/:user_id', () => {
+    context('GET All Orders Successful', () => {
+      beforeEach('Fill Orders', () => {
+        return seedHelper.seedUsers(db)
+            .then(() => seedHelper.seedClients(db))
+            .then(() => seedHelper.seedOrders(db));
+      })
+
+      it('Orders Successful', () => {
+        return supertest(app)
+          .get('/api/orders/byuser/1')
+          .expect(200)
+          .expect(res => {
+            console.log(res.body);
+          })
       })
     })
   })
@@ -73,9 +92,9 @@ describe('Orders Endpoints', function() {
           .post('/api/orders')
           .send(newOrder)
           .expect(400)
-          .expect(res => {
+          /*.expect(res => {
             console.log(res.body);
-          })
+          })*/
       })
 
       it('Respons 200 when created', () => {
@@ -84,9 +103,9 @@ describe('Orders Endpoints', function() {
           .post('/api/orders')
           .send(newOrder)
           .expect(201)
-          /*.expect(res => {
+          .expect(res => {
             console.log(res.body);
-          })*/
+          })
       })
     })
   })
@@ -184,9 +203,9 @@ describe('Orders Endpoints', function() {
         return supertest(app)
           .get('/api/orders/1/products')
           .expect(200)
-          /*.expect(res => {
+          .expect(res => {
             console.log(res.body);
-          })*/
+          })
       })
     })
   })
@@ -205,9 +224,9 @@ describe('Orders Endpoints', function() {
         return supertest(app)
           .get('/api/orders/1/products/1')
           .expect(200)
-          /*.expect(res => {
+          .expect(res => {
             console.log(res.body);
-          })*/
+          })
       })
     })
   })
@@ -228,17 +247,46 @@ describe('Orders Endpoints', function() {
           .post('/api/orders/1/products')
           .send(newProduct)
           .expect(400)
-          .expect(res => {
+          /*.expect(res => {
             console.log(res.body);
-          })
+          })*/
       })
 
       it('Respons 200 when created', () => {
         const newProduct = helper.makeOrderProductArray()[0];
+        //console.log(helper.makeProductsArray()[0]);
         return supertest(app)
           .post('/api/orders/1/products')
           .send(newProduct)
           .expect(201)
+          .expect(res => {
+            console.log(res.body);
+          })
+          /*.then(() => supertest(app)
+            .get('/api/products/1')
+            .expect(200)
+            .expect(ress => {
+              console.log(ress.body)
+            })
+          )*/
+      })
+    })
+
+    context('POST Order Product Exist', () => {
+      beforeEach('Fill roles', () => {
+        return seedHelper.seedUsers(db)
+            .then(() => seedHelper.seedClients(db))
+            .then(() => seedHelper.seedOrders(db))
+            .then(() => seedHelper.seedProducts(db))
+            .then(() => seedHelper.seedOrderProduct(db));
+      })
+
+      it('Respons 400 when order and product exist', () => {
+        const newProduct = helper.makeOrderProductArray()[0];
+        return supertest(app)
+          .post('/api/orders/1/products')
+          .send(newProduct)
+          .expect(400)
           /*.expect(res => {
             console.log(res.body);
           })*/
@@ -307,9 +355,9 @@ describe('Orders Endpoints', function() {
       it('Respons 200 when deleted', () => {
         return supertest(app)
           .delete('/api/orders/1/products/1')
-          .expect(204)
+          .expect(201)
           .expect(res => {
-
+            console.log(res.body);
           })
           .then(() => {
             return supertest(app)
@@ -337,9 +385,9 @@ describe('Orders Endpoints', function() {
         return supertest(app)
           .get('/api/orders/1/promotions')
           .expect(200)
-          /*.expect(res => {
+          .expect(res => {
             console.log(res.body);
-          })*/
+          })
       })
     })
   })
@@ -381,9 +429,9 @@ describe('Orders Endpoints', function() {
           .post('/api/orders/1/promotions')
           .send(newProduct)
           .expect(400)
-          .expect(res => {
+          /*.expect(res => {
             console.log(res.body);
-          })
+          })*/
       })
 
       it('Respons 200 when created', () => {
@@ -395,6 +443,27 @@ describe('Orders Endpoints', function() {
           /*.expect(res => {
             console.log(res.body);
           })*/
+      })
+    })
+
+    context('POST Order Promotion Exist', () => {
+      beforeEach('Fill roles', () => {
+        return seedHelper.seedUsers(db)
+            .then(() => seedHelper.seedClients(db))
+            .then(() => seedHelper.seedOrders(db))
+            .then(() => seedHelper.seedPromotions(db))
+            .then(() => seedHelper.seedOrderPromotion(db));
+      })
+
+      it('Respons 400 when order and promotion exist', () => {
+        const newProduct = helper.makeOrderPromotionArray()[0];
+        return supertest(app)
+          .post('/api/orders/1/promotions')
+          .send(newProduct)
+          .expect(400)
+          .expect(res => {
+            console.log(res.body);
+          })
       })
     })
   })
@@ -447,7 +516,7 @@ describe('Orders Endpoints', function() {
     })
   })
 
-  describe('DELETE /:order_id/promotions/:promotion_id', () => {
+  describe.only('DELETE /:order_id/promotions/:promotion_id', () => {
     context('DELETE Order Product Successful', () => {
       beforeEach('Fill roles', () => {
         return seedHelper.seedUsers(db)
@@ -460,9 +529,9 @@ describe('Orders Endpoints', function() {
       it('Respons 200 when deleted', () => {
         return supertest(app)
           .delete('/api/orders/1/promotions/1')
-          .expect(204)
+          .expect(201)
           .expect(res => {
-
+            console.log(res.body);
           })
           .then(() => {
             return supertest(app)
@@ -471,6 +540,53 @@ describe('Orders Endpoints', function() {
               /*.expect(res => {
                 console.log(res.body);
               })*/
+          })
+      })
+    })
+  })
+
+  describe('GET /filter/:user_id/:from/:to', () => {
+    context('GET All Sales Filtered User Successful', () => {
+      beforeEach('Fill sales', () => {
+        return seedHelper.seedUsers(db)
+            .then(() => seedHelper.seedClients(db))
+            .then(() => seedHelper.seedOrders(db))
+      })
+
+      it('Sales Successful', () => {
+        return supertest(app)
+          .get('/api/orders/filter/2/2018-01-22/2029-01-23')
+          .set('Authorization', helper.makeAuthHeader())
+          .expect(200)
+          .expect(res => {
+            console.log(res.body);
+          })
+      })
+    })
+  })
+
+  describe('Post Send Mail /api/orders/sendmail', () => {
+    context('Send Mail Successful', () => {
+      beforeEach('Fill sales', () => {
+        return seedHelper.seedUsers(db)
+            .then(() => seedHelper.seedClients(db))
+            .then(() => seedHelper.seedOrders(db))
+      })
+
+      it('Sales Successful', () => {
+        const newMail = {
+          mail_to: 'fabianlemac@gmail.com',
+          user_id: 1,
+          from: '2018-01-22',
+          to: '2029-01-23'
+        }
+        return supertest(app)
+          .post('/api/orders/send/mail')
+          .set('Authorization', helper.makeAuthHeader())
+          .send(newMail)
+          .expect(201)
+          .expect(res => {
+            console.log(res.body);
           })
       })
     })

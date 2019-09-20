@@ -1,6 +1,7 @@
 const express = require('express');
 const jsonBodyParser = express.json();
 const AuthService = require('./auth-service');
+const UsersService = require('../users/users-service');
 const { requireAuth } = require('../utils/jwt-auth');
 
 const authRouter = express.Router();
@@ -30,7 +31,9 @@ authRouter.post('/login', jsonBodyParser, (req, res, next) => {
           });
         const sub = dbUser.user_code.toString();
         const payload = { user_id: dbUser.id };
-        res.send({
+        res.json({
+          id: dbUser.id,
+          role: dbUser.role,
           authToken: AuthService.createJwt(sub, payload)
         });
       });
@@ -38,12 +41,22 @@ authRouter.post('/login', jsonBodyParser, (req, res, next) => {
     .catch(next);
 });
 
-authRouter.post('/refresh', requireAuth, (req, res) => {
-  const sub = req.user.user_code
+authRouter.post('/refresh', (req, res) => {
+  const sub = req.user.user_code.toString()
   const payload = { user_id: req.user.id }
   res.send({
     authToken: AuthService.createJwt(sub, payload),
   })
+})
+
+authRouter.patch('/changepassword', jsonBodyParser, (req, res, next) => {
+  const { id, password } = req.body;
+  UsersService.hashPassword(password)
+    .then(passwordEncoded => UsersService.updateUser(req.app.get('db'), id, {password: passwordEncoded}))
+    .then(numRowsAffected => {
+      res.status(202).json({message: 'Ok'})
+    })
+    .catch(next)
 })
 
 module.exports = authRouter;

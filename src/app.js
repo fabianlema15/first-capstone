@@ -13,6 +13,7 @@ const salesRoute = require('./sales/sales-route');
 const authRouter = require('./auth/auth-router')
 const { requireAuth } = require('./utils/jwt-auth');
 const logger = require('./utils/logger');
+const fileUpload = require('express-fileupload');
 
 const app = express()
 
@@ -23,6 +24,8 @@ const morganOption = (NODE_ENV === 'production')
 app.use(morgan(morganOption))
 app.use(helmet())
 app.use(cors())
+app.use(fileUpload());
+app.use('/public', express.static(__dirname + '/public'));
 app.use(requireAuth);
 
 app.use('/api/users', usersRoute);
@@ -33,6 +36,20 @@ app.use('/api/orders', ordersRoute);
 app.use('/api/sales', salesRoute);
 app.use('/api/sales', salesRoute);
 app.use('/api/auth', authRouter);
+
+app.post('/api/upload', (req, res, next) => {
+  let imageFile = req.files.file;
+
+  imageFile.mv(`${__dirname}/public/${req.body.filename}`, function(err) {
+    if (err) {
+      console.log(err);
+      return res.status(500).send(err);
+    }
+
+    res.json({file: `public/${req.body.filename}`});
+  });
+
+})
 
 app.get('/', (req, res) => {
   res.send('Hello, world!');

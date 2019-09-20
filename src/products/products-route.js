@@ -16,11 +16,11 @@ productsRoute
       .catch(next)
   })
   .post(jsonParser, (req, res, next) => {
-    const { name, picture, decription, stock, price } = req.body
+    const { name, picture, description, stock, price } = req.body
     const newProduct = {
       name,
       picture,
-      decription,
+      description,
       stock,
       price
     }
@@ -71,11 +71,11 @@ productsRoute
     .catch(next)
   })
   .patch(jsonParser, (req, res, next) => {
-    const { name, picture, decription, stock, price } = req.body;
+    const { name, picture, description, stock, price } = req.body;
     let productToUpdate = {
       name,
       picture,
-      decription,
+      description,
       stock,
       price
     };

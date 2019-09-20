@@ -16,7 +16,7 @@ const schemasNew = {
   product:Joi.object().keys({
       name: Joi.string().regex(SPACE_PUNTUATION).min(2).max(100).required(),
       picture: Joi.string().min(2).max(100).required(),
-      decription: Joi.string().regex(SPACE_PUNTUATION).allow(''),
+      description: Joi.string().regex(SPACE_PUNTUATION).allow(''),
       stock: Joi.number().integer().min(0).required(),
       price: Joi.number().min(0).required()
   }),

@@ -56,7 +56,7 @@ describe('Auth Endpoints', function() {
       const testUser = helper.makeUsersArray()[0];
       const userInvalidPass = {
         user_code: testUser.user_code,
-        password: 'incorrect'
+        password: '345345'
       };
       return supertest(app)
         .post('/api/auth/login')
@@ -83,9 +83,33 @@ describe('Auth Endpoints', function() {
       return supertest(app)
         .post('/api/auth/login')
         .send(userValidCreds)
-        .expect(200, {
+        .expect(200)
+        /*.expect(res => {
+          console.log(res.body);
+        })*/
+        /*.expect(200, {
           authToken: expectedToken
-        });
+        });*/
     });
   });
+
+  describe('PATCH /api/auth/changepassword', () => {
+    beforeEach('insert users', () => seedHelper.seedUsers(db));
+
+    it('responds 200 changed', () => {
+      testUser = helper.makeUsersArray()[0];
+      const userValid = {
+        id: 1,
+        password: '345345'
+      };
+      return supertest(app)
+        .patch('/api/auth/changepassword')
+        .send(userValid)
+        .expect(202)
+        .expect(res => {
+          console.log(res.body);
+        })
+    });
+  });
+
 });

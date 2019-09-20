@@ -7,6 +7,7 @@ const OrderPromotionService = require('./order-prom-service');
 const Utils = require('../utils/utils');
 const path = require('path');
 const validator = require('../utils/validator');
+const mail = require('../utils/mail');
 
 ordersRoute
   .route('/')
@@ -101,6 +102,16 @@ ordersRoute
   })
 
   ordersRoute
+    .route('/byuser/:user_id')
+    .get((req, res, next) => {
+      OrdersService.getAllByUser(req.app.get('db'), req.params.user_id)
+        .then(orders => {
+          res.json(orders.map(Utils.serialize))
+        })
+        .catch(next)
+    })
+
+  ordersRoute
     .route('/:order_id/products/')
     .get((req, res, next) => {
       const { order_id } = req.params;
@@ -124,13 +135,26 @@ ordersRoute
       if (errorValidator){
         return res.status(400).json({error : errorValidator});
       }
-      return OrderProductService.insertProduct(req.app.get('db'), newProduct)
-        .then(product => {
+      OrderProductService.hasOrderWithProduct(req.app.get('db'), order_id, product_id)
+        .then(exist => {
+          if (exist)
+            return res.status(400).json({error: 'The order already has the selected product!'})
+
+          /*const product = await OrderProductService.insertProduct(req.app.get('db'), newProduct)
+          //await OrderProductService.updateProductStock(req.app.get('db'), product.id, product.quantity)
           res
             .status(201)
             .location(path.posix.join(req.originalUrl, `/${product.id}`))
-            .json(Utils.serialize(product))
-        })
+            .json(Utils.serialize(product))*/
+            return OrderProductService.insertProduct(req.app.get('db'), newProduct)
+            .then(product => {
+              res
+                .status(201)
+                .location(path.posix.join(req.originalUrl, `/${product.id}`))
+                .json(Utils.serialize(product))
+            })
+        }).catch(next)
+
     })
 
     ordersRoute
@@ -159,11 +183,12 @@ ordersRoute
       OrderProductService.deleteProduct(
         req.app.get('db'),
         order_id,
-        product_id
+        product_id,
+        res.product
       )
-      .then(numRowsAffected => {
+      .then(order => {
         //logger.info(`Card with id ${bookmark_id} deleted.`)
-        res.status(204).end()
+        res.status(201).json(order)
       })
       .catch(next)
     })
@@ -216,13 +241,19 @@ ordersRoute
         if (errorValidator){
           return res.status(400).json({error : errorValidator});
         }
-        return OrderPromotionService.insertProduct(req.app.get('db'), newPromotion)
-          .then(promotion => {
-            res
-              .status(201)
-              .location(path.posix.join(req.originalUrl, `/${promotion.id}`))
-              .json(Utils.serialize(promotion))
-          })
+        OrderPromotionService.hasOrderWithPromotion(req.app.get('db'), order_id, promotion_id)
+          .then(exist => {
+            if (exist)
+              return res.status(400).json({error: 'The order already has the selected promotion!'})
+
+            return OrderPromotionService.insertProduct(req.app.get('db'), newPromotion)
+              .then(promotion => {
+                res
+                  .status(201)
+                  .location(path.posix.join(req.originalUrl, `/${promotion.id}`))
+                  .json(Utils.serialize(promotion))
+              })
+          }).catch(next)
       })
 
       ordersRoute
@@ -251,11 +282,12 @@ ordersRoute
         OrderPromotionService.deleteProduct(
           req.app.get('db'),
           order_id,
-          promotion_id
+          promotion_id,
+          res.promotion
         )
-        .then(numRowsAffected => {
+        .then(order => {
           //logger.info(`Card with id ${bookmark_id} deleted.`)
-          res.status(204).end()
+          res.status(201).json(order)
         })
         .catch(next)
       })
@@ -283,5 +315,29 @@ ordersRoute
         })
         .catch(next)
       })
+
+  ordersRoute
+    .route('/filter/:user_id/:from/:to')
+    .get((req, res, next) => {
+      const {user_id, from, to } = req.params;
+      OrdersService.getByUserDate(req.app.get('db'), user_id, from, to)
+        .then(orders => {
+          res.json(orders.map(Utils.serialize))
+        })
+        .catch(next)
+    })
+
+  ordersRoute
+    .route('/send/mail')
+    .post(jsonParser, (req, res, next) => {
+      console.log(req.body);
+      const {mail_to, user_id, from, to } = req.body;
+      OrdersService.getByUserDate(req.app.get('db'), user_id, from, to)
+        .then(orders => {
+          mail.send(mail_to, orders)
+          res.status(201).json({message: 'OK'});
+        })
+        .catch(next)
+    })
 
   module.exports = ordersRoute;

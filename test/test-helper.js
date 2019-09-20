@@ -54,14 +54,14 @@ function makeProductsArray(){
     id: 1,
     name: 'Beer',
     picture: '/images/sdfsd.png',
-    decription: 'Nice',
+    description: 'Nice',
     stock: 21,
     price: 4.23
   },{
     id: 2,
     name: 'Tequila',
     picture: '/images/tequ.png',
-    decription: 'Very nice',
+    description: 'Very nice',
     stock: 51,
     price: 6.23
   }]
@@ -116,6 +116,15 @@ function makeOrdersArray(){
   },
   {
     id: 2,
+    user_id: 2,
+    client_id: 2,
+    subtotal: 134.54,
+    tax: 53.42,
+    total: 245.32,
+    observation: 'Left at the yellow house'
+  },
+  {
+    id: 3,
     user_id: 1,
     client_id: 2,
     subtotal: 134.54,

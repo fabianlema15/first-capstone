@@ -8,22 +8,6 @@ const Utils = {
     }
     return newObject;
   },
-
-  /*removeEmpty(requiredFields, completeFields){
-    for (const field of Object.keys(requiredFields)){
-      if (requiredFields[field] == null){
-        delete completeFields[field]
-      }else{
-        if (typeof requiredFields[field] === 'string' && requiredFields[field].trim() === ''){
-          delete completeFields[field];
-        }/*else if (typeof requiredFields[field] === 'number' && requiredFields[field] === 0){
-          delete completeFields[field];
-        }*/
-      /*}
-    }
-    return completeFields;
-  },*/
-
   generateCodeUser(){
     let arrayComplete = [1,2,3,4,5,6,7,8,9,0];
     let i, random;
@@ -47,6 +31,55 @@ const Utils = {
       }
     }
     return arrayGenerated.join('');
+  },
+  generateHtml(list){
+    const rows = list.map(obj => {
+      return `<tr>
+        <td>${obj.client.full_name}</td>
+        <td>${obj.subtotal}</td>
+        <td>${obj.tax}</td>
+        <td>${obj.total}</td>
+        <td>${obj.observation}</td>
+      </tr>`
+    }).join('');
+    let html = `<html>
+      <head>
+      <style>
+      table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+      }
+
+      tr:nth-child(even) {
+        background-color: #dddddd;
+      }
+      </style>
+      </head>
+      <body>
+
+      <h2>Report</h2>
+
+      <table>
+        <tr>
+          <th>Client</th>
+          <th>Subtotal</th>
+          <th>Tax</th>
+          <th>Total</th>
+          <th>Observation</th>
+        </tr>
+        ${rows}
+      </table>
+
+      </body>
+      </html>`
+    return html;
   }
 }
 
