@@ -259,16 +259,4 @@ module.exports = {
   makeOrderPromotionArray,
   makeDailySaleArray,
   makeAuthHeader
-  /*makeThingsArray,
-  makeExpectedThing,
-  makeExpectedThingReviews,
-  makeMaliciousThing,
-  makeReviewsArray,
-
-  makeThingsFixtures,
-
-  seedThingsTables,
-  seedMaliciousThing,
-  seedUsers,
-  makeAuthHeader*/
 };

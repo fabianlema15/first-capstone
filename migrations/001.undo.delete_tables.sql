@@ -1,0 +1,11 @@
+DROP TABLE IF EXISTS daily_sales;
+DROP TABLE IF EXISTS order_product;
+DROP TABLE IF EXISTS order_promotion;
+DROP TABLE IF EXISTS orders;
+DROP TABLE IF EXISTS promotion_product;
+DROP TABLE IF EXISTS promotions;
+DROP TABLE IF EXISTS clients;
+DROP TABLE IF EXISTS products;
+DROP TABLE IF EXISTS users;
+DROP TYPE IF EXISTS status;
+DROP TYPE IF EXISTS roles;
