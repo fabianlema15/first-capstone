@@ -1,26 +1,31 @@
-# Express Boilerplate!
+# Liquor Store Server (API)
 
-This is a boilerplate project used for starting new projects!
+This app should be used by any liquor store to sell different kinds of liquor, get reports about every sell and day. Also, we can get the maintenance of products, clients, and users.
 
-## Set up
+## Funtionalities
 
-Complete the following steps to start a new project (NEW-PROJECT-NAME):
+1. There are 3 roles: admin, manager, and seller.
+2. As the admin should able to access all functionalities of the app.
+3. The manager can see and manage(CRUD) a list of all products, clients, sales, and sellers.
+4. Admin can create new accounts with any role.
+5. Managers can create promotions(combos) that can have many products and the quantity of each one.
+6. As the manager could daily report of all employees, manage products and its stocks, also manages one new sale. Get reports of sales and products.
+7. Manage can get reports of sales by any seller.
+8. Users should access the app using code with 6 numbers.
+9. The client should have basic information to be contacted if is necessary.
+10. Each sale can add new products and manage quantity. The total by each product and all products should be calculated automatically.
+11. The product of each product inside of promotions should be updated automatically after the new sale.
+12. Each product should behave at least information on stock, price, and picture.
+13. Reports should be sended by email.
+8. The app should be focused on use in phone or tablet device.
 
-1. Clone this repository to your local machine `git clone BOILERPLATE-URL NEW-PROJECTS-NAME`
-2. `cd` into the cloned repository
-3. Make a fresh start of the git history for this project with `rm -rf .git && git init`
-4. Install the node dependencies `npm install`
-5. Move the example Environment file to `.env` that will be ignored by git and read by the express server `mv example.env .env`
-6. Edit the contents of the `package.json` to use NEW-PROJECT-NAME instead of `"name": "express-boilerplate",`
+## Images
 
-## Scripts
+1. Database schema
 
-Start the application `npm start`
+![App Image](/images/1.png)
 
-Start nodemon for the application `npm run dev`
 
-Run the tests `npm test`
+## Demo
 
-## Deploying
-
-When your new project is ready for deployment, add a new Heroku application with `heroku create`. This will make a new git remote called "heroku" and you can then `npm run deploy` which will push to this remote's master branch.
+Click on the next link: [Demo](https://serene-eyrie-30268.herokuapp.com/api)
