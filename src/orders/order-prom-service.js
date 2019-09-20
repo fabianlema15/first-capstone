@@ -1,4 +1,5 @@
 const OrdersService = require('./orders-service');
+const { TAX_PERCENT } = require('../config')
 
 const OrderPromotionService = {
   getAllOrderPromotion(db, order_id) {
@@ -25,7 +26,7 @@ const OrderPromotionService = {
         'ordprom.promotion_id',
         'prms.id',
       )
-      .where({order_id})
+    .where({order_id})
   },
 
   hasOrderWithPromotion(db, order_id, promotion_id) {

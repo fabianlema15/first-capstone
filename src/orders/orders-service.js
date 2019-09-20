@@ -1,13 +1,57 @@
 
 const OrdersService = {
   getAllOrders(db) {
-    return db.select('*').from('orders').where({status:'Active'})
+    return db.from('orders')
+    .select(
+      'orders.id',
+      'orders.client_id',
+      'orders.subtotal',
+      'orders.tax',
+      'orders.total',
+      'orders.observation',
+      db.raw(
+          `row_to_json(
+            (SELECT tmp FROM (
+              SELECT
+                clients.id,
+                clients.full_name
+            ) tmp)
+          ) AS "client"`
+        )
+    )
+    .leftJoin(
+        'clients',
+        'orders.client_id',
+        'clients.id',
+      )
+    .where({'orders.status':'Active'})
   },
 
   getAllByUser(db, user_id) {
-    return db.select('*')
-      .from('orders')
-      .where({user_id, status:'Active'})
+    return db.from('orders')
+      .select(
+        'orders.id',
+        'orders.client_id',
+        'orders.subtotal',
+        'orders.tax',
+        'orders.total',
+        'orders.observation',
+        db.raw(
+            `row_to_json(
+              (SELECT tmp FROM (
+                SELECT
+                  clients.id,
+                  clients.full_name
+              ) tmp)
+            ) AS "client"`
+          )
+      )
+      .leftJoin(
+          'clients',
+          'orders.client_id',
+          'clients.id',
+      )
+      .where({'orders.user_id':user_id, 'orders.status':'Active'})
   },
 
   getByUserDate(db, user_id, from, to) {
