@@ -148,8 +148,8 @@ const OrderPromotionService = {
         .where({id: order_id})
         .update({
           'subtotal': db.raw(`subtotal - ${promotion.price}`),
-          'tax': db.raw(`(subtotal + ${promotion.price}) * ${parseFloat(TAX_PERCENT)}`),
-          'total': db.raw(`(subtotal + ${promotion.price}) * (${parseFloat(TAX_PERCENT)} + 1)`)
+          'tax': db.raw(`(subtotal - ${promotion.price}) * ${parseFloat(TAX_PERCENT)}`),
+          'total': db.raw(`(subtotal - ${promotion.price}) * (${parseFloat(TAX_PERCENT)} + 1)`)
         })
       )
       .then(() => db

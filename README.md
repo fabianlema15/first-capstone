@@ -2,6 +2,10 @@
 
 This app should be used by any liquor store to sell different kinds of liquor, get reports about every sell and day. Also, we can get the maintenance of products, clients, and users.
 
+## Demo
+
+Click on the next link: [Demo](https://serene-eyrie-30268.herokuapp.com/api)
+
 ## Funtionalities
 
 1. There are 3 roles: admin, manager, and seller.
@@ -24,8 +28,3 @@ This app should be used by any liquor store to sell different kinds of liquor, g
 1. Database schema
 
 ![App Image](/images/1.png)
-
-
-## Demo
-
-Click on the next link: [Demo](https://serene-eyrie-30268.herokuapp.com/api)
