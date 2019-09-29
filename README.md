@@ -6,7 +6,7 @@ This app should be used by any liquor store to sell different kinds of liquor, g
 
 Click on the next link: [Demo](https://serene-eyrie-30268.herokuapp.com/api)
 
-## Funtionalities
+## Functionalities
 
 1. There are 3 roles: admin, manager, and seller.
 2. As the admin should able to access all functionalities of the app.
