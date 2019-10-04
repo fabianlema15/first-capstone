@@ -6,6 +6,18 @@ This app should be used by any liquor store to sell different kinds of liquor, g
 
 Click on the next link: [Demo](https://serene-eyrie-30268.herokuapp.com/api)
 
+## File .env
+
+>NODE_ENV=development  
+PORT=8000  
+DB_URL="postgresql://user@localhost/liquor-store"  
+TEST_DB_URL="postgresql://user@localhost/liquor-store-test"  
+JWT_SECRET="84b6fg1c-34f7-49v7-9414-58dca813c3c5"  
+JWT_EXPIRY="3m"  
+MAIL_USER="user@gmail.com"</br>
+MAIL_PASS="password"  
+TAX_PERCENT="0.0925"  
+
 ## Functionalities
 
 1. There are 3 roles: admin, manager, and seller.
@@ -28,3 +40,48 @@ Click on the next link: [Demo](https://serene-eyrie-30268.herokuapp.com/api)
 1. Database schema
 
 ![App Image](/images/1.png)
+
+
+<!-- TOC depthFrom:1 depthTo:2 withLinks:1 updateOnSave:1 orderedList:0 -->
+
+- [Crossref REST API](#crossref-rest-api)
+    - [Preamble](#preamble)
+    - [Meta](#meta)
+    - [API overview](#api-overview)
+    - [Result types](#result-types)
+    - [Resource components](#resource-components)
+    - [Parameters](#parameters)
+    - [Queries](#queries)
+    - [Field Queries](#field-queries)
+    - [Sorting](#sorting)
+    - [Facet counts](#facet-counts)
+    - [Filter names](#filter-names)
+    - [Result controls](#result-controls)
+    - [API versioning](#api-versioning)
+    - [Documentation history](#documentation-history)
+
+<!-- /TOC -->
+
+
+# Liquor Store API
+
+## Preamblr
+
+The Crossref REST API is one of [a variety of tools and APIs](https://www.crossref.org/services/metadata-delivery/) that allow anybody to search and reuse our members' metadata in sophisticated ways.
+
+## Preamblr
+
+The Crossref REST API is one of [a variety of tools and APIs](https://www.crossref.org/services/metadata-delivery/) that allow anybody to search and reuse our members' metadata in sophisticated ways.
+## Preamblr
+
+The Crossref REST API is one of [a variety of tools and APIs](https://www.crossref.org/services/metadata-delivery/) that allow anybody to search and reuse our members' metadata in sophisticated ways.
+## Preamblr
+
+The Crossref REST API is one of [a variety of tools and APIs](https://www.crossref.org/services/metadata-delivery/) that allow anybody to search and reuse our members' metadata in sophisticated ways.
+## Preamblr
+
+The Crossref REST API is one of [a variety of tools and APIs](https://www.crossref.org/services/metadata-delivery/) that allow anybody to search and reuse our members' metadata in sophisticated ways.
+
+## Preamble
+
+The Crossref REST API is one of [a variety of tools and APIs](https://www.crossref.org/services/metadata-delivery/) that allow anybody to search and reuse our members' metadata in sophisticated ways.

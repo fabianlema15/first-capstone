@@ -32,6 +32,7 @@ describe('Orders Endpoints', function() {
       it('Orders Successful', () => {
         return supertest(app)
           .get('/api/orders')
+          .set('Authorization', helper.makeAuthHeader())
           .expect(200)
           .expect(res => {
             console.log(res.body);
@@ -51,6 +52,7 @@ describe('Orders Endpoints', function() {
       it('Orders Successful', () => {
         return supertest(app)
           .get('/api/orders/byuser/1')
+          .set('Authorization', helper.makeAuthHeader())
           .expect(200)
           .expect(res => {
             console.log(res.body);
@@ -70,6 +72,7 @@ describe('Orders Endpoints', function() {
       it('Order Successful', () => {
         return supertest(app)
           .get('/api/orders/1')
+          .set('Authorization', helper.makeAuthHeader())
           .expect(200)
           /*.expect(res => {
             console.log(res.body);
@@ -90,6 +93,7 @@ describe('Orders Endpoints', function() {
         newOrder.client_id = '';
         return supertest(app)
           .post('/api/orders')
+          .set('Authorization', helper.makeAuthHeader())
           .send(newOrder)
           .expect(400)
           /*.expect(res => {
@@ -101,6 +105,7 @@ describe('Orders Endpoints', function() {
         const newOrder = helper.makeOrdersArray()[0];
         return supertest(app)
           .post('/api/orders')
+          .set('Authorization', helper.makeAuthHeader())
           .send(newOrder)
           .expect(201)
           .expect(res => {
@@ -127,6 +132,7 @@ describe('Orders Endpoints', function() {
         }
         return supertest(app)
           .patch('/api/orders/1')
+          .set('Authorization', helper.makeAuthHeader())
           .send(newOrder)
           .expect(400)
           .expect(res => {
@@ -145,6 +151,7 @@ describe('Orders Endpoints', function() {
         }
         return supertest(app)
           .patch('/api/orders/1')
+          .set('Authorization', helper.makeAuthHeader())
           .send(newOrder)
           .expect(204)
           .expect(res => {
@@ -153,6 +160,7 @@ describe('Orders Endpoints', function() {
           .then(() => {
             return supertest(app)
               .get('/api/orders/1')
+              .set('Authorization', helper.makeAuthHeader())
               .expect(200)
               /*.expect(res => {
                 console.log(res.body);
@@ -173,6 +181,7 @@ describe('Orders Endpoints', function() {
       it('Respons 200 when inactivated', () => {
         return supertest(app)
           .delete('/api/orders/1')
+          .set('Authorization', helper.makeAuthHeader())
           .expect(204)
           .expect(res => {
 
@@ -180,6 +189,7 @@ describe('Orders Endpoints', function() {
           .then(() => {
             return supertest(app)
               .get('/api/orders/1')
+              .set('Authorization', helper.makeAuthHeader())
               .expect(404)
               /*.expect(res => {
                 console.log(res.body);
@@ -202,6 +212,7 @@ describe('Orders Endpoints', function() {
       it('Orders Successful', () => {
         return supertest(app)
           .get('/api/orders/1/products')
+          .set('Authorization', helper.makeAuthHeader())
           .expect(200)
           .expect(res => {
             console.log(res.body);
@@ -223,6 +234,7 @@ describe('Orders Endpoints', function() {
       it('Order Successful', () => {
         return supertest(app)
           .get('/api/orders/1/products/1')
+          .set('Authorization', helper.makeAuthHeader())
           .expect(200)
           .expect(res => {
             console.log(res.body);
@@ -245,6 +257,7 @@ describe('Orders Endpoints', function() {
         newProduct.quantity = null;
         return supertest(app)
           .post('/api/orders/1/products')
+          .set('Authorization', helper.makeAuthHeader())
           .send(newProduct)
           .expect(400)
           /*.expect(res => {
@@ -257,6 +270,7 @@ describe('Orders Endpoints', function() {
         //console.log(helper.makeProductsArray()[0]);
         return supertest(app)
           .post('/api/orders/1/products')
+          .set('Authorization', helper.makeAuthHeader())
           .send(newProduct)
           .expect(201)
           .expect(res => {
@@ -285,6 +299,7 @@ describe('Orders Endpoints', function() {
         const newProduct = helper.makeOrderProductArray()[0];
         return supertest(app)
           .post('/api/orders/1/products')
+          .set('Authorization', helper.makeAuthHeader())
           .send(newProduct)
           .expect(400)
           /*.expect(res => {
@@ -310,6 +325,7 @@ describe('Orders Endpoints', function() {
         }
         return supertest(app)
           .patch('/api/orders/1/products/1')
+          .set('Authorization', helper.makeAuthHeader())
           .send(newPromotion)
           .expect(400)
           .expect(res => {
@@ -325,6 +341,7 @@ describe('Orders Endpoints', function() {
         }
         return supertest(app)
           .patch('/api/orders/1/products/1')
+          .set('Authorization', helper.makeAuthHeader())
           .send(newOrder)
           .expect(204)
           .expect(res => {
@@ -333,6 +350,7 @@ describe('Orders Endpoints', function() {
           .then(() => {
             return supertest(app)
               .get('/api/orders/1/products/1')
+              .set('Authorization', helper.makeAuthHeader())
               .expect(200)
               /*.expect(res => {
                 console.log(res.body);
@@ -355,6 +373,7 @@ describe('Orders Endpoints', function() {
       it('Respons 200 when deleted', () => {
         return supertest(app)
           .delete('/api/orders/1/products/1')
+          .set('Authorization', helper.makeAuthHeader())
           .expect(201)
           .expect(res => {
             console.log(res.body);
@@ -362,6 +381,7 @@ describe('Orders Endpoints', function() {
           .then(() => {
             return supertest(app)
               .get('/api/orders/1/products/1')
+              .set('Authorization', helper.makeAuthHeader())
               .expect(404)
               /*.expect(res => {
                 console.log(res.body);
@@ -384,6 +404,7 @@ describe('Orders Endpoints', function() {
       it('Orders Successful', () => {
         return supertest(app)
           .get('/api/orders/1/promotions')
+          .set('Authorization', helper.makeAuthHeader())
           .expect(200)
           .expect(res => {
             console.log(res.body);
@@ -405,6 +426,7 @@ describe('Orders Endpoints', function() {
       it('Order Successful', () => {
         return supertest(app)
           .get('/api/orders/1/promotions/1')
+          .set('Authorization', helper.makeAuthHeader())
           .expect(200)
           /*.expect(res => {
             console.log(res.body);
@@ -427,6 +449,7 @@ describe('Orders Endpoints', function() {
         newProduct.quantity = null;
         return supertest(app)
           .post('/api/orders/1/promotions')
+          .set('Authorization', helper.makeAuthHeader())
           .send(newProduct)
           .expect(400)
           /*.expect(res => {
@@ -438,6 +461,7 @@ describe('Orders Endpoints', function() {
         const newProduct = helper.makeOrderPromotionArray()[0];
         return supertest(app)
           .post('/api/orders/1/promotions')
+          .set('Authorization', helper.makeAuthHeader())
           .send(newProduct)
           .expect(201)
           /*.expect(res => {
@@ -459,6 +483,7 @@ describe('Orders Endpoints', function() {
         const newProduct = helper.makeOrderPromotionArray()[0];
         return supertest(app)
           .post('/api/orders/1/promotions')
+          .set('Authorization', helper.makeAuthHeader())
           .send(newProduct)
           .expect(400)
           .expect(res => {
@@ -484,6 +509,7 @@ describe('Orders Endpoints', function() {
         }
         return supertest(app)
           .patch('/api/orders/1/promotions/1')
+          .set('Authorization', helper.makeAuthHeader())
           .send(newPromotion)
           .expect(400)
           .expect(res => {
@@ -499,6 +525,7 @@ describe('Orders Endpoints', function() {
         }
         return supertest(app)
           .patch('/api/orders/1/promotions/1')
+          .set('Authorization', helper.makeAuthHeader())
           .send(newOrder)
           .expect(204)
           .expect(res => {
@@ -507,6 +534,7 @@ describe('Orders Endpoints', function() {
           .then(() => {
             return supertest(app)
               .get('/api/orders/1/promotions/1')
+              .set('Authorization', helper.makeAuthHeader())
               .expect(200)
               /*.expect(res => {
                 console.log(res.body);
@@ -516,7 +544,7 @@ describe('Orders Endpoints', function() {
     })
   })
 
-  describe.only('DELETE /:order_id/promotions/:promotion_id', () => {
+  describe('DELETE /:order_id/promotions/:promotion_id', () => {
     context('DELETE Order Product Successful', () => {
       beforeEach('Fill roles', () => {
         return seedHelper.seedUsers(db)
@@ -529,6 +557,7 @@ describe('Orders Endpoints', function() {
       it('Respons 200 when deleted', () => {
         return supertest(app)
           .delete('/api/orders/1/promotions/1')
+          .set('Authorization', helper.makeAuthHeader())
           .expect(201)
           .expect(res => {
             console.log(res.body);
@@ -536,6 +565,7 @@ describe('Orders Endpoints', function() {
           .then(() => {
             return supertest(app)
               .get('/api/orders/1/promotions/1')
+              .set('Authorization', helper.makeAuthHeader())
               .expect(404)
               /*.expect(res => {
                 console.log(res.body);

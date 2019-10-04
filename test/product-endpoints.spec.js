@@ -19,6 +19,8 @@ describe('Products Endpoints', function() {
 
   before('cleanup', () => helper.cleanTables(db))
 
+  beforeEach('fill', () => seedHelper.seedUsers(db))
+
   afterEach('cleanup', () => helper.cleanTables(db))
 
   describe('GET /', () => {

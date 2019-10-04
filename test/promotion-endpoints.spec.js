@@ -19,6 +19,8 @@ describe('Promotions Endpoints', function() {
 
   before('cleanup', () => helper.cleanTables(db))
 
+  beforeEach('fill', () => seedHelper.seedUsers(db))
+
   afterEach('cleanup', () => helper.cleanTables(db))
 
   describe('GET /', () => {
@@ -30,6 +32,7 @@ describe('Promotions Endpoints', function() {
       it('Promotion Successful', () => {
         return supertest(app)
           .get('/api/promotions')
+          .set('Authorization', helper.makeAuthHeader())
           .expect(200)
           /*.expect(res => {
             console.log(res.body);
@@ -47,6 +50,7 @@ describe('Promotions Endpoints', function() {
       it('Promotion Successful', () => {
         return supertest(app)
           .get('/api/promotions/1')
+          .set('Authorization', helper.makeAuthHeader())
           .expect(200)
           /*.expect(res => {
             console.log(res.body);
@@ -61,6 +65,7 @@ describe('Promotions Endpoints', function() {
       newProduct.name = '';
       return supertest(app)
         .post('/api/products')
+        .set('Authorization', helper.makeAuthHeader())
         .send(newProduct)
         .expect(400)
         .expect(res => {
@@ -77,6 +82,7 @@ describe('Promotions Endpoints', function() {
         const newPromotion = helper.makePromotionsArray()[0];
         return supertest(app)
           .post('/api/promotions')
+          .set('Authorization', helper.makeAuthHeader())
           .send(newPromotion)
           .expect(201)
           /*.expect(res => {
@@ -102,6 +108,7 @@ describe('Promotions Endpoints', function() {
         }
         return supertest(app)
           .patch('/api/promotions/1')
+          .set('Authorization', helper.makeAuthHeader())
           .send(newPromotion)
           .expect(400)
           .expect(res => {
@@ -118,6 +125,7 @@ describe('Promotions Endpoints', function() {
         }
         return supertest(app)
           .patch('/api/promotions/1')
+          .set('Authorization', helper.makeAuthHeader())
           .send(newPromotion)
           .expect(204)
           .expect(res => {
@@ -126,6 +134,7 @@ describe('Promotions Endpoints', function() {
           .then(() => {
             return supertest(app)
               .get('/api/promotions/1')
+              .set('Authorization', helper.makeAuthHeader())
               .expect(200)
               /*.expect(res => {
                 console.log(res.body);
@@ -144,6 +153,7 @@ describe('Promotions Endpoints', function() {
       it('Respons 200 when inactivated', () => {
         return supertest(app)
           .delete('/api/promotions/1')
+          .set('Authorization', helper.makeAuthHeader())
           .expect(204)
           .expect(res => {
 
@@ -151,6 +161,7 @@ describe('Promotions Endpoints', function() {
           .then(() => {
             return supertest(app)
               .get('/api/promotions/1')
+              .set('Authorization', helper.makeAuthHeader())
               .expect(404)
               /*.expect(res => {
                 console.log(res.body);
@@ -171,6 +182,7 @@ describe('Promotions Endpoints', function() {
       it('Promotion Product Successful', () => {
         return supertest(app)
           .get('/api/promotions/1/products')
+          .set('Authorization', helper.makeAuthHeader())
           .expect(200)
           /*.expect(res => {
             console.log(res.body);
@@ -190,6 +202,7 @@ describe('Promotions Endpoints', function() {
       it('Promotion Successful', () => {
         return supertest(app)
           .get('/api/promotions/1/products/1')
+          .set('Authorization', helper.makeAuthHeader())
           .expect(200)
           /*.expect(res => {
             console.log(res.body);
@@ -211,6 +224,7 @@ describe('Promotions Endpoints', function() {
         newProduct.product_id = -23;
         return supertest(app)
           .post('/api/promotions/1/products')
+          .set('Authorization', helper.makeAuthHeader())
           .send(newProduct)
           .expect(400)
           .expect(res => {
@@ -222,6 +236,7 @@ describe('Promotions Endpoints', function() {
         const newProduct = helper.makePromotionProductArray()[0];
         return supertest(app)
           .post('/api/promotions/1/products')
+          .set('Authorization', helper.makeAuthHeader())
           .send(newProduct)
           .expect(201)
           /*.expect(res => {
@@ -245,6 +260,7 @@ describe('Promotions Endpoints', function() {
         }
         return supertest(app)
           .patch('/api/promotions/1/products/1')
+          .set('Authorization', helper.makeAuthHeader())
           .send(newPromotion)
           .expect(400)
           .expect(res => {
@@ -258,6 +274,7 @@ describe('Promotions Endpoints', function() {
         }
         return supertest(app)
           .patch('/api/promotions/1/products/1')
+          .set('Authorization', helper.makeAuthHeader())
           .send(newPromotion)
           .expect(204)
           .expect(res => {
@@ -266,6 +283,7 @@ describe('Promotions Endpoints', function() {
           .then(() => {
             return supertest(app)
               .get('/api/promotions/1/products/1')
+              .set('Authorization', helper.makeAuthHeader())
               .expect(200)
               /*.expect(res => {
                 console.log(res.body);
@@ -286,6 +304,7 @@ describe('Promotions Endpoints', function() {
       it('Respons 200 when deleted', () => {
         return supertest(app)
           .delete('/api/promotions/1/products/1')
+          .set('Authorization', helper.makeAuthHeader())
           .expect(204)
           .expect(res => {
 
@@ -293,6 +312,7 @@ describe('Promotions Endpoints', function() {
           .then(() => {
             return supertest(app)
               .get('/api/promotions/1/products/1')
+              .set('Authorization', helper.makeAuthHeader())
               .expect(404)
               /*.expect(res => {
                 console.log(res.body);

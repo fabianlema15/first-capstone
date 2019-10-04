@@ -104,6 +104,7 @@ describe('Auth Endpoints', function() {
       };
       return supertest(app)
         .patch('/api/auth/changepassword')
+        .set('Authorization', helper.makeAuthHeader())
         .send(userValid)
         .expect(202)
         .expect(res => {

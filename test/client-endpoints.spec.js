@@ -19,6 +19,8 @@ describe('Clients Endpoints', function() {
 
   before('cleanup', () => helper.cleanTables(db))
 
+  beforeEach('fill', () => seedHelper.seedUsers(db))
+
   afterEach('cleanup', () => helper.cleanTables(db))
 
   describe('GET /', () => {
@@ -30,6 +32,7 @@ describe('Clients Endpoints', function() {
       it('User Successful', () => {
         return supertest(app)
           .get('/api/clients')
+          .set('Authorization', helper.makeAuthHeader())
           .expect(200)
           /*.expect(res => {
             console.log(res.body);
@@ -47,6 +50,7 @@ describe('Clients Endpoints', function() {
       it('Client Successful', () => {
         return supertest(app)
           .get('/api/clients/1')
+          .set('Authorization', helper.makeAuthHeader())
           .expect(200)
           /*.expect(res => {
             console.log(res.body);
@@ -61,6 +65,7 @@ describe('Clients Endpoints', function() {
       newClient.full_name = 'F';
       return supertest(app)
         .post('/api/clients')
+        .set('Authorization', helper.makeAuthHeader())
         .send(newClient)
         .expect(400)
         .expect(res => {
@@ -77,6 +82,7 @@ describe('Clients Endpoints', function() {
         const newClient = helper.makeClientsArray()[0];
         return supertest(app)
           .post('/api/clients')
+          .set('Authorization', helper.makeAuthHeader())
           .send(newClient)
           .expect(201)
           /*.expect(res => {
@@ -100,6 +106,7 @@ describe('Clients Endpoints', function() {
         }
         return supertest(app)
           .patch('/api/clients/1')
+          .set('Authorization', helper.makeAuthHeader())
           .send(newClient)
           .expect(400)
           .expect(res => {
@@ -115,6 +122,7 @@ describe('Clients Endpoints', function() {
         }
         return supertest(app)
           .patch('/api/clients/1')
+          .set('Authorization', helper.makeAuthHeader())
           .send(newClient)
           .expect(204)
           .expect(res => {
@@ -123,6 +131,7 @@ describe('Clients Endpoints', function() {
           .then(() => {
             return supertest(app)
               .get('/api/clients/1')
+              .set('Authorization', helper.makeAuthHeader())
               .expect(200)
               /*.expect(res => {
                 console.log(res.body);
@@ -141,6 +150,7 @@ describe('Clients Endpoints', function() {
       it('Respons 200 when inactivated', () => {
         return supertest(app)
           .delete('/api/clients/1')
+          .set('Authorization', helper.makeAuthHeader())
           .expect(204)
           .expect(res => {
 
@@ -148,6 +158,7 @@ describe('Clients Endpoints', function() {
           .then(() => {
             return supertest(app)
               .get('/api/clients/1')
+              .set('Authorization', helper.makeAuthHeader())
               .expect(404)
               /*.expect(res => {
                 console.log(res.body);
