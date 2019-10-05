@@ -18,70 +18,39 @@ MAIL_USER="user@gmail.com"</br>
 MAIL_PASS="password"  
 TAX_PERCENT="0.0925"  
 
-## Functionalities
-
-1. There are 3 roles: admin, manager, and seller.
-2. As the admin should able to access all functionalities of the app.
-3. The manager can see and manage(CRUD) a list of all products, clients, sales, and sellers.
-4. Admin can create new accounts with any role.
-5. Managers can create promotions(combos) that can have many products and the quantity of each one.
-6. As the manager could daily report of all employees, manage products and its stocks, also manages one new sale. Get reports of sales and products.
-7. Manage can get reports of sales by any seller.
-8. Users should access the app using code with 6 numbers.
-9. The client should have basic information to be contacted if is necessary.
-10. Each sale can add new products and manage quantity. The total by each product and all products should be calculated automatically.
-11. The product of each product inside of promotions should be updated automatically after the new sale.
-12. Each product should behave at least information on stock, price, and picture.
-13. Reports should be sended by email.
-8. The app should be focused on use in phone or tablet device.
-
-## Images
-
-1. Database schema
+## Database schema
 
 ![App Image](/images/1.png)
 
 
-<!-- TOC depthFrom:1 depthTo:2 withLinks:1 updateOnSave:1 orderedList:0 -->
-
-- [Crossref REST API](#crossref-rest-api)
-    - [Preamble](#preamble)
-    - [Meta](#meta)
-    - [API overview](#api-overview)
-    - [Result types](#result-types)
-    - [Resource components](#resource-components)
-    - [Parameters](#parameters)
-    - [Queries](#queries)
-    - [Field Queries](#field-queries)
-    - [Sorting](#sorting)
-    - [Facet counts](#facet-counts)
-    - [Filter names](#filter-names)
-    - [Result controls](#result-controls)
-    - [API versioning](#api-versioning)
-    - [Documentation history](#documentation-history)
-
-<!-- /TOC -->
+## Liquor Store API
+- [Main Url](#main-url)
+- [Users](#users)
+- [Products](#meta)
+- [API overview](#api-overview)
 
 
-# Liquor Store API
+## Main URL  
+`https://serene-eyrie-30268.herokuapp.com/api`
 
-## Preamblr
+## Users
 
-The Crossref REST API is one of [a variety of tools and APIs](https://www.crossref.org/services/metadata-delivery/) that allow anybody to search and reuse our members' metadata in sophisticated ways.
+Create, edit and delete users allowed to use the app.
 
-## Preamblr
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| publisher | String | Yes | Name of work's publisher |
+| title | Array of String | Yes | Work titles, including translated titles |
+| original-title | Array of String | No | Work titles in the work's original publication language |
+| short-title | Array of String | No | Short or abbreviated work titles |
 
-The Crossref REST API is one of [a variety of tools and APIs](https://www.crossref.org/services/metadata-delivery/) that allow anybody to search and reuse our members' metadata in sophisticated ways.
-## Preamblr
 
-The Crossref REST API is one of [a variety of tools and APIs](https://www.crossref.org/services/metadata-delivery/) that allow anybody to search and reuse our members' metadata in sophisticated ways.
-## Preamblr
-
-The Crossref REST API is one of [a variety of tools and APIs](https://www.crossref.org/services/metadata-delivery/) that allow anybody to search and reuse our members' metadata in sophisticated ways.
-## Preamblr
-
-The Crossref REST API is one of [a variety of tools and APIs](https://www.crossref.org/services/metadata-delivery/) that allow anybody to search and reuse our members' metadata in sophisticated ways.
-
-## Preamble
-
-The Crossref REST API is one of [a variety of tools and APIs](https://www.crossref.org/services/metadata-delivery/) that allow anybody to search and reuse our members' metadata in sophisticated ways.
+| Resource | Method | Description |
+|-------|------|----------|
+| /users | GET | Return all active users |
+|    ^   | POST | Store a new user |
+| /users/:user_id | GET | Return user with user_id |
+|                 | PATCH | Edit user with user_id |
+|                 | DELETE | Inactive user with user_id |
+| /type/:type | GET | Return users roles |
+| /getbyrol/:role | GET | Return users by some role |
