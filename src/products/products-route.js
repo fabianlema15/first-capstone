@@ -44,7 +44,6 @@ productsRoute
     ProductsService.getById(req.app.get('db'), product_id)
       .then(product => {
         if (!product) {
-          //logger.error(`Product with id ${product_id} not found.`)
           return res.status(404).json({
             error: { message: `Product Not Found` }
           })
@@ -65,7 +64,6 @@ productsRoute
       product_id
     )
     .then(numRowsAffected => {
-      //logger.info(`Card with id ${bookmark_id} deleted.`)
       res.status(204).end()
     })
     .catch(next)
@@ -79,8 +77,6 @@ productsRoute
       stock,
       price
     };
-    //const requiredFields = { name, picture, stock, price };
-    //productToUpdate = Utils.removeEmpty(requiredFields, productToUpdate);
     const errorValidator = validator.validate(productToUpdate,'product', false)
     if (errorValidator){
       return res.status(400).json(errorValidator);

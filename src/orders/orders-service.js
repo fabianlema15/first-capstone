@@ -85,52 +85,6 @@ const OrdersService = {
 
   getById(db, id) {
     return db.from('orders').select('*').where({id, status:'Active'}).first()
-    /*return db.from('orders as ord')
-    .select('ord.id',
-        'ord.user_id',
-        'ord.client_id',
-        'ord.subtotal',
-        'ord.tax',
-        'ord.total',
-        'ord.observation',
-        db.raw(
-            `JSON_AGG(
-              (SELECT tmp FROM (
-                SELECT
-                  order_product.id,
-                  order_product.quantity
-              ) tmp)
-            ) AS "products"`
-          ),
-        db.raw(
-            `JSON_AGG(
-              (SELECT tmp FROM (
-                SELECT
-                  order_promotion.id,
-                  order_promotion.quantity
-              ) tmp)
-            ) AS "promotions"`
-          )
-      )
-    .innerJoin(
-      'order_product',
-      'order_product.order_id',
-      'ord.id')
-    .innerJoin(
-      'order_promotion',
-      'order_promotion.order_id',
-      'ord.id')
-    .where({'ord.id':id, status:'Active'})
-    .groupBy('ord.id',
-        'ord.user_id',
-        'ord.client_id',
-        'ord.subtotal',
-        'ord.tax',
-        'ord.total',
-        'ord.observation')
-    .then(answers => {
-        console.log(answers[0]);
-      })*/
   },
 
   insertOrder(db, newOrder){

@@ -43,7 +43,6 @@ clientsRoute
     ClientsService.getById(req.app.get('db'), client_id)
       .then(client => {
         if (!client) {
-          //logger.error(`Client with id ${client_id} not found.`)
           return res.status(404).json({
             error: { message: `Client Not Found` }
           })
@@ -64,7 +63,6 @@ clientsRoute
       client_id
     )
     .then(numRowsAffected => {
-      //logger.info(`Card with id ${bookmark_id} deleted.`)
       res.status(204).end()
     })
     .catch(next)
@@ -76,8 +74,6 @@ clientsRoute
       phone,
       email
     };
-    //const requiredFields = { full_name };
-    //clientToUpdate = Utils.removeEmpty(requiredFields, clientToUpdate);
     const errorValidator = validator.validate(clientToUpdate, 'client', false)
     if (errorValidator){
       return res.status(400).json(errorValidator);

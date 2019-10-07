@@ -48,7 +48,6 @@ ordersRoute
     OrdersService.getById(req.app.get('db'), order_id)
       .then(order => {
         if (!order) {
-          //logger.error(`Order with id ${order_id} not found.`)
           return res.status(404).json({
             error: { message: `Order Not Found` }
           })
@@ -69,7 +68,6 @@ ordersRoute
       order_id
     )
     .then(numRowsAffected => {
-      //logger.info(`Card with id ${bookmark_id} deleted.`)
       res.status(204).end()
     })
     .catch(next)
@@ -84,8 +82,6 @@ ordersRoute
       total,
       observation
     };
-    //const requiredFields = { user_id, client_id, subtotal, tax, total };
-    //orderToUpdate = Utils.removeEmpty(requiredFields, orderToUpdate);
     const errorValidator = validator.validate(orderToUpdate, 'order', false)
     if (errorValidator){
       return res.status(400).json(errorValidator);
@@ -139,14 +135,7 @@ ordersRoute
         .then(exist => {
           if (exist)
             return res.status(400).json({error: 'The order already has the selected product!'})
-
-          /*const product = await OrderProductService.insertProduct(req.app.get('db'), newProduct)
-          //await OrderProductService.updateProductStock(req.app.get('db'), product.id, product.quantity)
-          res
-            .status(201)
-            .location(path.posix.join(req.originalUrl, `/${product.id}`))
-            .json(Utils.serialize(product))*/
-            return OrderProductService.insertProduct(req.app.get('db'), newProduct)
+          return OrderProductService.insertProduct(req.app.get('db'), newProduct)
             .then(product => {
               res
                 .status(201)
@@ -164,7 +153,6 @@ ordersRoute
       OrderProductService.getById(req.app.get('db'), order_id, product_id)
         .then(product => {
           if (!product) {
-            //logger.error(`Order with id ${order_id} not found.`)
             return res.status(404).json({
               error: { message: `Order Not Found` }
             })
@@ -187,7 +175,6 @@ ordersRoute
         res.product
       )
       .then(order => {
-        //logger.info(`Card with id ${bookmark_id} deleted.`)
         res.status(201).json(order)
       })
       .catch(next)
@@ -199,8 +186,6 @@ ordersRoute
         price,
         observation
       };
-      //const requiredFields = { quantity, price };
-      //productToUpdate = Utils.removeEmpty(requiredFields, productToUpdate);
       const errorValidator = validator.validate(productToUpdate, 'orderProd', false)
       if (errorValidator){
         return res.status(400).json(errorValidator);
@@ -263,7 +248,6 @@ ordersRoute
         OrderPromotionService.getById(req.app.get('db'), order_id, promotion_id)
           .then(promotion => {
             if (!promotion) {
-              //logger.error(`Order with id ${order_id} not found.`)
               return res.status(404).json({
                 error: { message: `Order Not Found` }
               })
@@ -286,7 +270,6 @@ ordersRoute
           res.promotion
         )
         .then(order => {
-          //logger.info(`Card with id ${bookmark_id} deleted.`)
           res.status(201).json(order)
         })
         .catch(next)
@@ -298,8 +281,6 @@ ordersRoute
           price,
           observation
         };
-        //const requiredFields = { quantity, price };
-        //promotionToUpdate = Utils.removeEmpty(requiredFields, promotionToUpdate);
         const errorValidator = validator.validate(promotionToUpdate, 'orderProm', false)
         if (errorValidator){
           return res.status(400).json(errorValidator);

@@ -46,7 +46,6 @@ dailySalesRoute
     DailySalesService.getById(req.app.get('db'), sale_id)
       .then(dailySale => {
         if (!dailySale) {
-          //logger.error(`DailySale with id ${sale_id} not found.`)
           return res.status(404).json({
             error: { message: `DailySale Not Found` }
           })
@@ -67,7 +66,6 @@ dailySalesRoute
       sale_id
     )
     .then(numRowsAffected => {
-      //logger.info(`Card with id ${bookmark_id} deleted.`)
       res.status(204).end()
     })
     .catch(next)
@@ -83,8 +81,6 @@ dailySalesRoute
       observation,
       date_sale
     };
-    //const requiredFields = { user_id, number_sales, subtotal, tax, total, date_sale };
-    //dailySaleToUpdate = Utils.removeEmpty(requiredFields, dailySaleToUpdate);
     const errorValidator = validator.validate(dailySaleToUpdate, 'dailySale', false)
     if (errorValidator){
       return res.status(400).json(errorValidator);

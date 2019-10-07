@@ -66,7 +66,6 @@ promotionsRoute
       promotion_id
     )
     .then(numRowsAffected => {
-      //logger.info(`Card with id ${bookmark_id} deleted.`)
       res.status(204).end()
     })
     .catch(next)
@@ -80,8 +79,6 @@ promotionsRoute
       price,
       picture
     };
-    //const requiredFields = { name, stock, price, picture };
-    //promotionToUpdate = Utils.removeEmpty(requiredFields, promotionToUpdate);
     const errorValidator = validator.validate(promotionToUpdate, 'promotion', false)
     if (errorValidator){
       return res.status(400).json(errorValidator);
@@ -135,7 +132,6 @@ promotionsRoute
       PromotionDetailService.getById(req.app.get('db'), promotion_id, product_id)
         .then(product => {
           if (!product) {
-            //logger.error(`Promotion with id ${promotion_id} not found.`)
             return res.status(404).json({
               error: { message: `Promotion Not Found` }
             })
@@ -157,7 +153,6 @@ promotionsRoute
         product_id
       )
       .then(numRowsAffected => {
-        //logger.info(`Card with id ${bookmark_id} deleted.`)
         res.status(204).end()
       })
       .catch(next)
@@ -167,7 +162,6 @@ promotionsRoute
       const productToUpdate = {
         quantity
       };
-      //const requiredFields = { quantity };
       const errorValidator = validator.validate(productToUpdate, 'promProd', false)
       if (errorValidator){
         return res.status(400).json(errorValidator);
