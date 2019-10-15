@@ -11,6 +11,7 @@ const promotionsRoute = require('./promotions/promotions-route');
 const ordersRoute = require('./orders/orders-route');
 const salesRoute = require('./sales/sales-route');
 const authRouter = require('./auth/auth-router')
+const uploadRouter = require('./utils/upload-aws')
 const { requireAuth } = require('./utils/jwt-auth');
 const logger = require('./utils/logger');
 const fileUpload = require('express-fileupload');
@@ -36,20 +37,7 @@ app.use('/api/orders', ordersRoute);
 app.use('/api/sales', salesRoute);
 app.use('/api/sales', salesRoute);
 app.use('/api/auth', authRouter);
-
-app.post('/api/upload', (req, res, next) => {
-  let imageFile = req.files.file;
-
-  imageFile.mv(`${__dirname}/public/${req.body.filename}`, function(err) {
-    if (err) {
-      console.log(err);
-      return res.status(500).send(err);
-    }
-
-    res.json({file: `public/${req.body.filename}`});
-  });
-
-})
+app.use('/api/upload', uploadRouter);
 
 app.get('/', (req, res) => {
   res.send('Hello, world!');

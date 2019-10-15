@@ -595,7 +595,7 @@ describe('Orders Endpoints', function() {
     })
   })
 
-  describe('Post Send Mail /api/orders/sendmail', () => {
+  describe.skip('Post Send Mail /api/orders/sendmail', () => {
     context('Send Mail Successful', () => {
       beforeEach('Fill sales', () => {
         return seedHelper.seedUsers(db)

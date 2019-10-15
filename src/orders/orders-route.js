@@ -311,7 +311,6 @@ ordersRoute
   ordersRoute
     .route('/send/mail')
     .post(jsonParser, (req, res, next) => {
-      console.log(req.body);
       const {mail_to, user_id, from, to } = req.body;
       OrdersService.getByUserDate(req.app.get('db'), user_id, from, to)
         .then(orders => {
