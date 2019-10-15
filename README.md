@@ -41,8 +41,9 @@ SENDGRID_API_KEY=SG.pLxnUSd9ST-Lf_Pg3l8Ydw.h5s9IcEw9KtI0z4XuGdo8E-qZ5lL6cM92DW6D
 
 >NodeJS  
 Express  
-Postgresql
-AWS
+Postgresql  
+AWS S3  
+SendGrid
 
 
 ## Database schema
