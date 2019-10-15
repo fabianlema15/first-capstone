@@ -28,14 +28,14 @@ PORT=8000
 DB_URL="postgresql://user@localhost/liquor-store"  
 TEST_DB_URL="postgresql://user@localhost/liquor-store-test"  
 JWT_SECRET="84b6fg1c-34f7-49v7-9414-58dca813c3c5"  
-JWT_EXPIRY="3m"  
-SENDGRID_USERNAME="user@heroku.com"</br>
-TAX_PERCENT=0.0925
-AWS_BUCKET_NAME=example-storage
-AWS_ACCESS_KEY_ID=AKIAJFH5WROKSQQQ3BVA   
-AWS_SECRET_ACCESS_KEY=nzIP26HwqOXRenPsNGOUc/wNVgXzK9QGX22grM8o   
+JWT_EXPIRY="3m"   
+SENDGRID_USERNAME="user@heroku.com"</br>  
+TAX_PERCENT=0.0925  
+AWS_BUCKET_NAME=example-storage  
+AWS_ACCESS_KEY_ID=Your-api-id-here  
+AWS_SECRET_ACCESS_KEY=Your-secret-here  
 AWS_REGION=us-east-1  
-SENDGRID_API_KEY=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
+SENDGRID_API_KEY=Your-api-here
 
 ## Technologies
 
